@@ -19,11 +19,30 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            background: url('./bg2.jpg') repeat left center fixed; /* Add this line */
-            background-size: auto; /* Add this line */
-            color: RGB(0,0,0);
-            font-family: Arial, sans-serif;
+            background: url('./bg2.webp') no-repeat left center fixed;
+            background-size: auto;
+            color: rgb(0, 0, 0);
+            font-family: 'Licorice', cursive;
             padding: 20px;
+        }
+        
+        h1 {
+            font-family: 'Licorice', cursive;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding: 20px 40px;
+            border: 3px solid #000;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Add responsive styling for mobile */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+                padding: 15px 30px;
+            }
         }
 
         .slideshow-container {
