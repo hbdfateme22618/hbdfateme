@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head and other styles remain the same until play button styles -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <h1>Happy Birthday! 💙</h1>
+    <style>
+        /* Previous styles remain the same until play button styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: lightblue;
+            color: rgb(0, 0, 0);
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            border: 2px solid #333;
+        }
+
+        @media (max-width: 480px) {
+            .slideshow-container {
+                width: 90vw;
+                height: 90vw;
+                margin: 10px auto;
+            }
+
+            .controls {
+                flex-direction: row;
+                width: 90vw;
+                justify-content: center;
+            }
+
+            .nav-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #ffffff;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover {
+            background: #ffffff;
+        }
+
+        .music-controls {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Updated play button styles */
+        .play-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .play-button:hover {
+            background: #f5f5f5;
+            transform: scale(1.1);
+        }
+
+        .play-icon {
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #000000;
+            margin-left: 5px;
+        }
+
+        .pause-icon {
+            width: 16px;
+            height: 24px;
+            position: relative;
+        }
+
+        .pause-icon::before,
+        .pause-icon::after {
+            content: '';
+            position: absolute;
+            background: #000000;
+            width: 5px;
+            height: 100%;
+            top: 0;
+        }
+
+        .pause-icon::before {
+            left: 0;
+        }
+
+        .pause-icon::after {
+            right: 0;
+        }
+    </style>
+</head>
+<!-- Rest of the HTML remains exactly the same -->
+<body>
+    <div class="slideshow-container">
+        <div class="slide active">
+            <img src="images/IMG_0159 4.jpg" alt="Image 1">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_0718 4.jpg" alt="Image 2">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_1701 4.jpg" alt="Image 3">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_3743 4.jpg" alt="Image 4">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_4105 4.jpg" alt="Image 5">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_4110 4.jpg" alt="Image 6">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_4121 4.jpg" alt="Image 7">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_5949 4.jpg" alt="Image 8">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_6351 4.jpg" alt="Image 9">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_6422 4.jpg" alt="Image 10">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_6970 4.jpg" alt="Image 11">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_9451 4.jpg" alt="Image 12">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_9458 4.jpg" alt="Image 13">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_9460 4.jpg" alt="Image 14">
+        </div>
+        <div class="slide">
+            <img src="images/IMG_9467 4.jpg" alt="Image 15">
+        </div>
+    </div>
+
+    <div class="music-controls">
+        <audio id="bgMusic" loop>
+            <source src="Koorosh - Hayahoo.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button onclick="toggleMusic()" id="musicBtn" class="play-button">
+            <div class="pause-icon"></div>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = true;
+
+        // Auto start music
+        window.addEventListener('load', () => {
+            audio.play().catch(error => {
+                console.log("Auto-play failed:", error);
+                isPlaying = false;
+                updateMusicButton();
+            });
+        });
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function updateMusicButton() {
+            musicBtn.innerHTML = isPlaying ? 
+                '<div class="pause-icon"></div>' : 
+                '<div class="play-icon"></div>';
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+            updateMusicButton();
+        }
+
+        // Auto slide show
+        setInterval(nextSlide, 3000);
+    </script>
+</body>
+</html>
